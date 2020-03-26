@@ -102,7 +102,7 @@ class Login extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Text(
-                    "Login",
+                    "Ingresar",
                     style: TextStyle(
                       fontSize: 35,
                       fontWeight: FontWeight.w700,

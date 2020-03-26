@@ -97,14 +97,14 @@ class Register extends StatelessWidget {
               // ..scale(1.6)
             ),
             Positioned(
-              top: height * 0.17,
+              top: height * 0.23,
               left: width * 0.05,
               child: Column(
                 children: <Widget>[
                   Text(
-                    "Más\nNotas",
+                    "Registrarse",
                     style: TextStyle(
-                      fontSize: 35,
+                      fontSize: 32,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -175,7 +175,7 @@ class Register extends StatelessWidget {
                             color: hint,
                             size: 20,
                           ),
-                          hintText: "Confirmar",
+                          hintText: "Confirmar contraseña",
                           hintStyle: TextStyle(
                             color: Colors.black,
                           ),
