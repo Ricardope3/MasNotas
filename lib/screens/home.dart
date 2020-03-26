@@ -54,10 +54,10 @@ class Home extends StatelessWidget {
       "https://images.unsplash.com/photo-1562411052-a9fe410b5a9c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
     ];
     List<String> nom = [
-      "Matematicas",
+      "Matemáticas",
       "Estructura de Datos",
-      "Cambio Climatico",
-      "Quimica"
+      "Cambio Climático",
+      "Química"
     ];
     List<Container> lista = [];
 
