@@ -8,3 +8,8 @@ class NavigatorInitial extends NavigatorState {
   @override
   List<Object> get props => [];
 }
+
+class NavigateToHome extends NavigatorState{
+  @override
+  List<Object> get props => null;
+}

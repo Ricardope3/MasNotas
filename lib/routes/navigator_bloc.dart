@@ -17,7 +17,6 @@ class NavigatorBloc extends Bloc<NavigatorEvent, dynamic> {
     NavigatorEvent event,
   ) async* {
     if(event is OnNavigationPop){
-
     }
   }
 }

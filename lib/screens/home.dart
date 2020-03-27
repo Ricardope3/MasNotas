@@ -11,10 +11,12 @@ class Home extends StatelessWidget {
     return Scaffold(
       backgroundColor: hint,
       appBar: AppBar(
-          title: Text(
-            "Más Notas",
-          ),
-          elevation: 0),
+        title: Text(
+          "Más Notas",
+          style: TextStyle(fontSize: 25),
+        ),
+        elevation: 0,
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,6 +65,7 @@ class Home extends StatelessWidget {
 
     for (var i = 0; i < im.length; i++) {
       Container con = Container(
+        padding: EdgeInsets.only(bottom: 20),
         height: height * 0.17,
         width: width * 0.45,
         child: Stack(
@@ -71,30 +74,27 @@ class Home extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.all(
                   Radius.circular(
-                    30,
+                    20,
                   ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  child: Image.network(
-                    im[i],
-                    fit: BoxFit.cover,
-                  ),
+                child: Image.network(
+                  im[i],
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
             Transform.translate(
-              offset: Offset(0, 40),
+              offset: Offset(0, 45),
               child: Align(
                 alignment: Alignment.center,
                 child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.symmetric(horizontal:18.0),
                   child: Container(
-                    padding: EdgeInsets.all(5),
+                    padding: EdgeInsets.symmetric(vertical:5,horizontal: 15),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(
-                        Radius.circular(30),
+                        Radius.circular(20),
                       ),
                       boxShadow: [
                         BoxShadow(

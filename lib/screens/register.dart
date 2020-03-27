@@ -45,11 +45,11 @@ class Register extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    accent,
                     light.withAlpha(150),
+                    Colors.white60,
                   ],
                   begin: Alignment.bottomLeft,
-                  end: Alignment(6, 0.2),
+                  end: Alignment(20,-5),
                 ),
               ),
             ),
@@ -62,8 +62,8 @@ class Register extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(50)),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black87,
                       blurRadius: 10,
+                      color: Colors.black38,
                     ),
                   ],
                 ),
@@ -208,9 +208,8 @@ class Register extends StatelessWidget {
                   ),
                 ),
               );
-              
             },
-            backgroundColor: primary,
+            backgroundColor: hint,
             hoverElevation: 100,
             child: Icon(
               Icons.arrow_forward,
