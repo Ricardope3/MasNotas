@@ -39,7 +39,7 @@ class Home extends StatelessWidget {
               child: Wrap(
                 spacing: width * 0.05,
                 runSpacing: width * 0.05,
-                children: buildContainers(height, width),
+                children: buildContainers(context, height, width),
               ),
             )
           ],
@@ -48,7 +48,7 @@ class Home extends StatelessWidget {
     );
   }
 
-  List<Container> buildContainers(double height, double width) {
+  List<Container> buildContainers(BuildContext context, double height, double width) {
     List<String> im = [
       "https://images.unsplash.com/photo-1453733190371-0a9bedd82893?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2767&q=80",
       "https://images.unsplash.com/photo-1569396116180-7fe09fa16dd8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
@@ -56,10 +56,10 @@ class Home extends StatelessWidget {
       "https://images.unsplash.com/photo-1562411052-a9fe410b5a9c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
     ];
     List<String> nom = [
-      "Matematicas",
+      "Matemáticas",
       "Estructura de Datos",
-      "Cambio Climatico",
-      "Quimica"
+      "Cambio Climático",
+      "Química"
     ];
     List<Container> lista = [];
 
@@ -84,11 +84,12 @@ class Home extends StatelessWidget {
               ),
             ),
             Transform.translate(
-              offset: Offset(0, 45),
-              child: Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal:18.0),
+              offset: Offset(0, 40),
+              child: FlatButton(
+                onPressed: () => Navigator.pushNamed(context, '/note_gallery'),
+                highlightColor: Colors.transparent,
+                child: Align(
+                  alignment: Alignment.center,
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical:5,horizontal: 15),
                     decoration: BoxDecoration(

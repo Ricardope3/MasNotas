@@ -73,7 +73,7 @@ class Authenticate extends StatelessWidget {
                       height: height * 0.07,
                       child: Center(
                         child: Text(
-                          "Log in",
+                          "Ingresar",
                           style: TextStyle(
                             color: accent,
                             fontSize: 23,
@@ -115,7 +115,7 @@ class Authenticate extends StatelessWidget {
                       height: height * 0.07,
                       child: Center(
                         child: Text(
-                          "Register",
+                          "Registrarse",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 23,
