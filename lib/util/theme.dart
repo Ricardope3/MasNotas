@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
-Color primary =  Color.fromARGB(255, 43, 47, 72);
-Color light =  Color.fromARGB(255, 215, 82, 76);
-Color hint = Color.fromARGB(255, 134, 61, 74);
-Color accent  = Color.fromARGB(255, 79, 55, 73);
+Color primary =  Color(0xFFe92efb);
+Color light =  Color(0xFFFF2079);
+Color hint = Color(0xFF440BD4);
+Color accent  = Color(0xFF04005E);
+Color bg = Color(0xFFF0DEF3);
 ThemeData theme = ThemeData(
   primaryColor:primary,
   primaryColorLight:light,
   hintColor: hint,
   accentColor: accent,
+  backgroundColor: bg,
 );

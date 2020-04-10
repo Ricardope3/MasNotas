@@ -17,23 +17,33 @@ class Login extends StatelessWidget {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
     loginBloc = BlocProvider.of<AuthenticateBloc>(context);
-    return BlocBuilder<AuthenticateBloc, AuthenticateState>(
-      builder: (context, state) {
-        if (state is AuthenticateInitial) {
-          return buildLoginWidget(context);
-        } else if (state is Registering) {
-          return buildLoggingWidget(context);
-        } else if (state is Authenticated) {
-          return buildLoggedWidget();
-        }
-        return Center(
-          child: Text("Algo salio mal lmao"),
-        );
-      },
+    return Scaffold(
+      body: BlocListener<AuthenticateBloc, AuthenticateState>(
+        listener: (context, state) {
+          if (state is AuthenticateError) {
+            final snackBar = SnackBar(content: Text('Error al iniciar sesion'));
+            Scaffold.of(context).showSnackBar(snackBar);
+          }
+        },
+        child: BlocBuilder<AuthenticateBloc, AuthenticateState>(
+          builder: (context, state) {
+            if (state is AuthenticateInitial) {
+              return buildLoginWidget(context);
+            } else if (state is Authenticating) {
+              return buildLoggingWidget(context);
+            } else if (state is Authenticated) {
+              return buildLoggedWidget();
+            }
+            return buildLoginWidget(context);
+          },
+        ),
+      ),
     );
   }
 
-  Scaffold buildLoginWidget(BuildContext context) {
+  Widget buildLoginWidget(BuildContext context) {
+    String _email = "";
+    String _password = "";
     return Scaffold(
       backgroundColor: accent,
       body: SingleChildScrollView(
@@ -46,10 +56,10 @@ class Login extends StatelessWidget {
                 gradient: LinearGradient(
                   colors: [
                     accent,
-                    light.withAlpha(150),
+                    hint.withOpacity(1),
                   ],
                   begin: Alignment.bottomLeft,
-                  end: Alignment(6, 0.2),
+                  end: Alignment(1, -1),
                 ),
               ),
             ),
@@ -62,9 +72,9 @@ class Login extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(50)),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black87,
-                      blurRadius: 10,
-                    ),
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 10,
+                        spreadRadius: 10),
                   ],
                 ),
               ),
@@ -121,6 +131,9 @@ class Login extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       TextFormField(
+                        onChanged: (val) {
+                          _email = val;
+                        },
                         decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.mail,
@@ -137,6 +150,9 @@ class Login extends StatelessWidget {
                         height: 20,
                       ),
                       TextFormField(
+                        onChanged: (val) {
+                          _password = val;
+                        },
                         decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.lock,
@@ -164,21 +180,16 @@ class Login extends StatelessWidget {
           child: FloatingActionButton(
             splashColor: light,
             onPressed: () {
-              // loginBloc.add(
-              //   OnRegister(
-              //     user: User(
-              //       name: "Ricardo",
-              //       email: "ricky.foals@gmail.com",
-              //       gender: "Male",
-              //       language: "es",
-              //       lastname: "Espinoza",
-              //       password: "123",
-              //     ),
-              //   ),
-              // );
-              
+              loginBloc.add(
+                OnLogin(
+                  user: User(
+                    email: _email,
+                    password: _password,
+                  ),
+                ),
+              );
             },
-            backgroundColor: primary,
+            backgroundColor: light,
             hoverElevation: 100,
             child: Icon(
               Icons.arrow_forward,

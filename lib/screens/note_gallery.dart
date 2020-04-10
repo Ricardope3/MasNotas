@@ -11,10 +11,11 @@ class NoteGallery extends StatelessWidget {
     return Scaffold(
       backgroundColor: hint,
       appBar: AppBar(
-          title: Text(
-            "Más Notas",
-          ),
-          elevation: 0),
+        title: Text(
+          "Más Notas",
+        ),
+        elevation: 0,
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

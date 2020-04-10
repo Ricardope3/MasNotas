@@ -25,10 +25,10 @@ class Authenticate extends StatelessWidget {
         gradient: LinearGradient(
           colors: [
             hint,
-            hint.withAlpha(150),
+            primary,
           ],
           begin: Alignment.bottomLeft,
-          end: Alignment(6, 0.2),
+          end: Alignment(6,-1),
         ),
       ),
       child: Stack(

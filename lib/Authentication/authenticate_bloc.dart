@@ -6,9 +6,8 @@ import 'package:mas_notas/repositories/register_repository.dart';
 
 import 'authenticate_event.dart';
 
-
 class AuthenticateBloc extends Bloc<AuthenticateEvent, AuthenticateState> {
-  RegisterUser userRepository = RegisterUser();
+  AuthRepository userRepository = AuthRepository();
   @override
   AuthenticateState get initialState => AuthenticateInitial();
 
@@ -17,13 +16,20 @@ class AuthenticateBloc extends Bloc<AuthenticateEvent, AuthenticateState> {
     AuthenticateEvent event,
   ) async* {
     if (event is OnRegister) {
-      yield Registering();
-      try {
-        User user = await userRepository.register(event.user);
+      yield Authenticating();
+      User user = await userRepository.register(event.user);
+      if (user != null) {
         yield Authenticated(user: user);
-      } catch (e) {
-        print(e.toString());
-        yield RegisterError(message: e.toString());
+      } else {
+        yield AuthenticateError(message: "Error al Registrar");
+      }
+    } else if (event is OnLogin) {
+      yield Authenticating();
+      User user = await userRepository.login(event.user);
+      if (user != null) {
+        yield Authenticated(user: user);
+      } else {
+        yield AuthenticateError(message: "Error al Iniciar Sesion");
       }
     }
   }

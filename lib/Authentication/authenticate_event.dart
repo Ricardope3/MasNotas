@@ -17,3 +17,12 @@ class OnRegister extends AuthenticateEvent {
   @override
   List<Object> get props => [user];
 }
+class OnLogin extends AuthenticateEvent {
+
+  final User user;
+  OnLogin({
+    @required this.user,
+  });
+  @override
+  List<Object> get props => [user];
+}

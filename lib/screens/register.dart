@@ -17,23 +17,34 @@ class Register extends StatelessWidget {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
     registerBloc = BlocProvider.of<AuthenticateBloc>(context);
-    return BlocBuilder<AuthenticateBloc, AuthenticateState>(
-      builder: (context, state) {
-        if (state is AuthenticateInitial) {
-          return buildRegisterWidget(context);
-        } else if (state is Registering) {
-          return buildRegisteringWidget(context);
-        } else if (state is Authenticated) {
-          return buildRegisteredWidget();
-        }
-        return Center(
-          child: Text("Algo salio mal lmao"),
-        );
-      },
+    return Scaffold(
+      body: BlocListener<AuthenticateBloc, AuthenticateState>(
+        listener: (context, state) {
+          if (state is AuthenticateError) {
+            final snackBar = SnackBar(content: Text('Error en el registro'));
+            Scaffold.of(context).showSnackBar(snackBar);
+          }
+        },
+        child: BlocBuilder<AuthenticateBloc, AuthenticateState>(
+          builder: (context, state) {
+            if (state is AuthenticateInitial) {
+              return buildRegisterWidget(context);
+            } else if (state is Authenticating) {
+              return buildRegisteringWidget(context);
+            } else if (state is Authenticated) {
+              return buildRegisteredWidget();
+            }
+            return buildRegisterWidget(context);
+          },
+        ),
+      ),
     );
   }
 
   Scaffold buildRegisterWidget(BuildContext context) {
+    String _email = "";
+    String _name = "";
+    String _password = "";
     return Scaffold(
       backgroundColor: accent,
       body: SingleChildScrollView(
@@ -45,11 +56,11 @@ class Register extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    light.withAlpha(150),
-                    Colors.white60,
+                    light.withAlpha(200),
+                    Colors.white,
                   ],
                   begin: Alignment.bottomLeft,
-                  end: Alignment(20,-5),
+                  end: Alignment(20, -5),
                 ),
               ),
             ),
@@ -63,7 +74,8 @@ class Register extends StatelessWidget {
                   boxShadow: [
                     BoxShadow(
                       blurRadius: 10,
-                      color: Colors.black38,
+                      spreadRadius: 5,
+                      color: Colors.black.withOpacity(0.10),
                     ),
                   ],
                 ),
@@ -121,6 +133,10 @@ class Register extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       TextFormField(
+                        onChanged: (val){
+                          _name = val;
+                        },
+
                         decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.person,
@@ -137,6 +153,9 @@ class Register extends StatelessWidget {
                         height: 20,
                       ),
                       TextFormField(
+                        onChanged: (val){
+                          _email = val;                        },
+
                         decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.mail,
@@ -153,6 +172,10 @@ class Register extends StatelessWidget {
                         height: 20,
                       ),
                       TextFormField(
+                        onChanged: (val){
+                          _password = val;
+                        },
+
                         decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.lock,
@@ -169,6 +192,8 @@ class Register extends StatelessWidget {
                         height: 20,
                       ),
                       TextFormField(
+                        onChanged: (val){},
+
                         decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.lock,
@@ -199,12 +224,9 @@ class Register extends StatelessWidget {
               registerBloc.add(
                 OnRegister(
                   user: User(
-                    name: "Ricardo",
-                    email: "ricky.foals@gmail.com",
-                    gender: "Male",
-                    language: "es",
-                    lastname: "Espinoza",
-                    password: "123",
+                    name: _name,
+                    email: _email,
+                    password: _password,
                   ),
                 ),
               );

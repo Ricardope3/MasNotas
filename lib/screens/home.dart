@@ -9,8 +9,9 @@ class Home extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: hint,
+      backgroundColor: accent.withAlpha(150),
       appBar: AppBar(
+        backgroundColor: accent,
         title: Text(
           "Más Notas",
           style: TextStyle(fontSize: 25),
@@ -29,7 +30,7 @@ class Home extends StatelessWidget {
               child: Text(
                 "Horario",
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontSize: 30,
                   fontWeight: FontWeight.w700,
                 ),
@@ -99,8 +100,9 @@ class Home extends StatelessWidget {
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.shade800,
-                          blurRadius: 5,
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 10,
+                          spreadRadius: 5,
                         ),
                       ],
                     ),

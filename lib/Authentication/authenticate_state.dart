@@ -12,7 +12,7 @@ class AuthenticateInitial extends AuthenticateState {
   List<Object> get props => [];
 }
 
-class Registering extends AuthenticateState {
+class Authenticating extends AuthenticateState {
   @override
   List<Object> get props => [];
 }
@@ -26,9 +26,9 @@ class Authenticated extends AuthenticateState {
   List<Object> get props => [user];
 }
 
-class RegisterError extends AuthenticateState {
+class AuthenticateError extends AuthenticateState {
   final String message;
-  RegisterError({
+  AuthenticateError({
     @required this.message,
   });
   @override
