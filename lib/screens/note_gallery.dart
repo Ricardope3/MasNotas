@@ -20,12 +20,12 @@ class NoteGallery extends StatelessWidget {
           mainAxisSpacing: 5.0,
           crossAxisSpacing: 5.0,
           padding: EdgeInsets.all(5.0),
-          children: _buildImageGrid(),
+          children: _buildImageGrid(context),
         )
     );
   }
 
-  List<Container> _buildImageGrid() {
+  List<Container> _buildImageGrid(BuildContext context) {
     List<String> im = [
       "https://images.unsplash.com/photo-1532622785990-d2c36a76f5a6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
       "https://images.unsplash.com/photo-1565310959460-eeeac31791ab?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2734&q=80",
@@ -49,9 +49,25 @@ class NoteGallery extends StatelessWidget {
     List<Container> list = [];
 
     for (var i = 0; i < im.length; i++) {
-      Container con = Container(child: Image.network(
-        im[i],
-        fit: BoxFit.cover,
+      Container con = Container(
+        child: GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return Scaffold(
+                    appBar: AppBar(),
+                    backgroundColor: hint,
+                    body: Center(child: Image.network(im[i])),
+                  );
+                }
+              )
+            );
+          },
+          child: Image.network(
+            im[i],
+            fit: BoxFit.cover,
+          ),
         )
       );
       list.add(con);
