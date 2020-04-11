@@ -12,7 +12,6 @@ class AuthRepository {
     String _queryParams =
         "email=${user.email}&name=${user.name}&password=${user.password}";
     String url = "$_baseUrl$_register$_queryParams";
-    print(url);
     http.Response response = await http.get(url);
     print(response.body);
     if (response.statusCode == 200) {

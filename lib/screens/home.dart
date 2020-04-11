@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:loading_indicator/loading_indicator.dart';
+import 'package:mas_notas/models/class.dart';
+import 'package:mas_notas/repositories/notes_repository.dart';
 import 'package:mas_notas/util/theme.dart';
 
 class Home extends StatelessWidget {
@@ -9,7 +12,7 @@ class Home extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: accent.withAlpha(150),
+      backgroundColor: primary.withAlpha(30),
       appBar: AppBar(
         backgroundColor: accent,
         title: Text(
@@ -18,112 +21,146 @@ class Home extends StatelessWidget {
         ),
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 25,
-                vertical: 40,
-              ),
-              child: Text(
-                "Horario",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 30,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-            Center(
-              child: Wrap(
-                spacing: width * 0.05,
-                runSpacing: width * 0.05,
-                children: buildContainers(context, height, width),
-              ),
-            )
-          ],
-        ),
+      body: FutureBuilder(
+        future: NoteRepository.getClasses(1),
+        initialData: [],
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return loading(context);
+          } else if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.data != null) {
+              return MateriasWidget(classes: snapshot.data,height: height,width: width,);
+            } else {
+              return Text("Error al recuperar los datos");
+            }
+          }
+        },
       ),
     );
   }
 
-  List<Container> buildContainers(BuildContext context, double height, double width) {
-    List<String> im = [
-      "https://images.unsplash.com/photo-1453733190371-0a9bedd82893?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2767&q=80",
-      "https://images.unsplash.com/photo-1569396116180-7fe09fa16dd8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-      "https://images.unsplash.com/photo-1565282604648-a13c5f19fd61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-      "https://images.unsplash.com/photo-1562411052-a9fe410b5a9c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
-    ];
-    List<String> nom = [
-      "Matemáticas",
-      "Estructura de Datos",
-      "Cambio Climático",
-      "Química"
-    ];
-    List<Container> lista = [];
-
-    for (var i = 0; i < im.length; i++) {
-      Container con = Container(
-        padding: EdgeInsets.only(bottom: 20),
-        height: height * 0.17,
-        width: width * 0.45,
-        child: Stack(
-          children: <Widget>[
-            Positioned.fill(
-              child: ClipRRect(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(
-                    20,
-                  ),
-                ),
-                child: Image.network(
-                  im[i],
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            Transform.translate(
-              offset: Offset(0, 40),
-              child: FlatButton(
-                onPressed: () => Navigator.pushNamed(context, '/note_gallery'),
-                highlightColor: Colors.transparent,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical:5,horizontal: 15),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 10,
-                          spreadRadius: 5,
-                        ),
-                      ],
-                    ),
-                    child: Text(
-                      nom[i],
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
+  Widget loading(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Container(
+          height: 60,
+          child: LoadingIndicator(
+            indicatorType: Indicator.ballTrianglePath ,
+            color: Theme.of(context).accentColor,
+          ),
         ),
-      );
-      lista.add(con);
-    }
-    return lista;
+      ),
+    );
   }
+}
+
+class MateriasWidget extends StatelessWidget {
+  const MateriasWidget({
+    Key key,
+    @required this.width,
+    @required this.height,
+    @required this.classes
+  }) : super(key: key);
+
+  final double width;
+  final double height;
+  final List<Class> classes ;
+  @override
+  Widget build(BuildContext context,) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 25,
+              vertical: 40,
+            ),
+            child: Text(
+              "Horario",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 30,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+          Center(
+            child: Wrap(
+              spacing: width * 0.05,
+              runSpacing: width * 0.05,
+              children: buildContainers(context, height, width, classes),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+List<Container> buildContainers(
+    BuildContext context, double height, double width,List<Class> classes) {
+
+    List<Container> materiaWidgets = [];
+  for (var i = 0; i < classes.length; i++) {
+    Container con = Container(
+      padding: EdgeInsets.only(bottom: 20),
+      height: height * 0.17,
+      width: width * 0.45,
+      child: Stack(
+        children: <Widget>[
+          Positioned.fill(
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(
+                Radius.circular(
+                  20,
+                ),
+              ),
+              child: Image.network(
+                classes[i].imageUrl,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Transform.translate(
+            offset: Offset(0, 40),
+            child: FlatButton(
+              onPressed: () => Navigator.pushNamed(context, '/note_gallery'),
+              highlightColor: Colors.transparent,
+              child: Align(
+                alignment: Alignment.center,
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 10,
+                        spreadRadius: 5,
+                      ),
+                    ],
+                  ),
+                  child: Text(
+                    classes[i].name,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+    materiaWidgets.add(con);
+  }
+  return materiaWidgets;
 }
