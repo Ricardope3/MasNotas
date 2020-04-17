@@ -20,7 +20,9 @@ class Register extends StatelessWidget {
     return Scaffold(
       body: BlocListener<AuthenticateBloc, AuthenticateState>(
         listener: (context, state) {
-          if (state is AuthenticateError) {
+          if (state is Authenticated) {
+            Navigator.pushReplacementNamed(context, "/navWrapper");
+          } else if (state is AuthenticateError) {
             final snackBar = SnackBar(content: Text('Error en el registro'));
             Scaffold.of(context).showSnackBar(snackBar);
           }
@@ -133,10 +135,9 @@ class Register extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       TextFormField(
-                        onChanged: (val){
+                        onChanged: (val) {
                           _name = val;
                         },
-
                         decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.person,
@@ -153,9 +154,9 @@ class Register extends StatelessWidget {
                         height: 20,
                       ),
                       TextFormField(
-                        onChanged: (val){
-                          _email = val;                        },
-
+                        onChanged: (val) {
+                          _email = val;
+                        },
                         decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.mail,
@@ -172,10 +173,9 @@ class Register extends StatelessWidget {
                         height: 20,
                       ),
                       TextFormField(
-                        onChanged: (val){
+                        onChanged: (val) {
                           _password = val;
                         },
-
                         decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.lock,
@@ -192,8 +192,7 @@ class Register extends StatelessWidget {
                         height: 20,
                       ),
                       TextFormField(
-                        onChanged: (val){},
-
+                        onChanged: (val) {},
                         decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.lock,
