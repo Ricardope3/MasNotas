@@ -44,9 +44,15 @@ class NoteRepository {
     }
   }
 
-
-    static Future<Note> postNote(int idClass) async {
-    String _noteUrl = "https://images.unsplash.com/photo-1542744094-24638eff58bb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60";  
+  static Future<Note> postNote(int idClass) async {
+    String _noteUrl;
+    if (idClass == 3) {
+      _noteUrl =
+          "https://www.researchgate.net/profile/Anders_Bruun2/publication/281447608/figure/fig2/AS:364859632963585@1464000723191/Picture-of-the-whiteboard-with-colored-notes.png";
+    } else {
+      _noteUrl =
+          "https://media.gettyimages.com/photos/whiteboard-with-notes-and-brainstorming-ideas-picture-id139624316";
+    }
     String _queryParams = "idclass=$idClass&url=$_noteUrl";
     String url = "$_baseUrl$_postNotas$_queryParams";
     http.Response response = await http.get(url);

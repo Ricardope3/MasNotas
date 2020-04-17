@@ -10,9 +10,14 @@ import 'package:mas_notas/repositories/notes_repository.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:path/path.dart';
 
-class NoteGallery extends StatelessWidget {
+class NoteGallery extends StatefulWidget {
   const NoteGallery({Key key}) : super(key: key);
 
+  @override
+  _NoteGalleryState createState() => _NoteGalleryState();
+}
+
+class _NoteGalleryState extends State<NoteGallery> {
   @override
   Widget build(BuildContext context) {
     final int idClass = ModalRoute.of(context).settings.arguments;
@@ -27,7 +32,9 @@ class NoteGallery extends StatelessWidget {
             return;
           }
           Note nota = await NoteRepository.postNote(idClass);
-          this.build(context);
+          setState(() {
+            
+          });
         },
         child: Icon(
           Icons.camera_alt,
