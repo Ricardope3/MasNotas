@@ -25,7 +25,7 @@ class NoteGallery extends StatelessWidget {
           // this.build(context);
         },
         child: Icon(
-          Icons.plus_one,
+          Icons.camera_alt,
         ),
       ),
       backgroundColor: Colors.white,

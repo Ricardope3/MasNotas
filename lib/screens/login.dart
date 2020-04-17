@@ -149,6 +149,7 @@ class Login extends StatelessWidget {
                       height: 20,
                     ),
                     TextFormField(
+                      obscureText: true,
                       onChanged: (val) {
                         _password = val;
                       },
