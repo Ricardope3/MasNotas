@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:loading_indicator/loading_indicator.dart';
-import 'package:mas_notas/models/class.dart';
-import 'package:mas_notas/repositories/notes_repository.dart';
+import 'package:mas_notas/models/schedule.dart';
+import 'package:mas_notas/repositories/schedules_repository.dart';
 import 'package:mas_notas/util/theme.dart';
 
-class Home extends StatelessWidget {
-  const Home({Key key}) : super(key: key);
+class Schedules extends StatelessWidget {
+  const Schedules({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +22,14 @@ class Home extends StatelessWidget {
         elevation: 0,
       ),
       body: FutureBuilder(
-        future: NoteRepository.getClasses(1),
+        future: SchedulesRepository.getSchedules("rafa@google.com"),
         initialData: [],
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return loading(context);
           } else if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.data != null) {
-              return MateriasWidget(classes: snapshot.data,height: height,width: width,);
+              return SchedulesWidget(schedules: snapshot.data,height: height,width: width,);
             } else {
               return Text("Error al recuperar los datos");
             }
@@ -54,17 +54,17 @@ class Home extends StatelessWidget {
   }
 }
 
-class MateriasWidget extends StatelessWidget {
-  const MateriasWidget({
+class SchedulesWidget extends StatelessWidget {
+  const SchedulesWidget({
     Key key,
     @required this.width,
     @required this.height,
-    @required this.classes
+    @required this.schedules
   }) : super(key: key);
 
   final double width;
   final double height;
-  final List<Class> classes ;
+  final List<Schedule> schedules;
   @override
   Widget build(BuildContext context,) {
     return SingleChildScrollView(
@@ -77,9 +77,9 @@ class MateriasWidget extends StatelessWidget {
               vertical: 40,
             ),
             child: Text(
-              "Materias",
+              "Horarios",
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontSize: 30,
                 fontWeight: FontWeight.w700,
               ),
@@ -89,7 +89,7 @@ class MateriasWidget extends StatelessWidget {
             child: Wrap(
               spacing: width * 0.05,
               runSpacing: width * 0.05,
-              children: buildContainers(context, height, width, classes),
+              children: buildContainers(context, height, width, schedules),
             ),
           )
         ],
@@ -99,10 +99,10 @@ class MateriasWidget extends StatelessWidget {
 }
 
 List<Container> buildContainers(
-    BuildContext context, double height, double width,List<Class> classes) {
+    BuildContext context, double height, double width,List<Schedule> schedules) {
 
     List<Container> materiaWidgets = [];
-  for (var i = 0; i < classes.length; i++) {
+  for (var i = 0; i < schedules.length; i++) {
     Container con = Container(
       padding: EdgeInsets.only(bottom: 20),
       height: height * 0.17,
@@ -117,7 +117,7 @@ List<Container> buildContainers(
                 ),
               ),
               child: Image.network(
-                classes[i].imageUrl,
+                schedules[i].url,
                 fit: BoxFit.cover,
               ),
             ),
@@ -125,7 +125,7 @@ List<Container> buildContainers(
           Transform.translate(
             offset: Offset(0, 40),
             child: FlatButton(
-              onPressed: () => Navigator.pushNamed(context, '/note_gallery'),
+              onPressed: () => Navigator.pushNamed(context, '/home'),
               highlightColor: Colors.transparent,
               child: Align(
                 alignment: Alignment.center,
@@ -145,7 +145,7 @@ List<Container> buildContainers(
                     ],
                   ),
                   child: Text(
-                    classes[i].name,
+                    schedules[i].name,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,
