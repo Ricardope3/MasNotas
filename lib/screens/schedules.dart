@@ -7,9 +7,14 @@ import 'package:mas_notas/models/schedule.dart';
 import 'package:mas_notas/repositories/schedules_repository.dart';
 import 'package:mas_notas/util/theme.dart';
 
-class Schedules extends StatelessWidget {
+class Schedules extends StatefulWidget {
   const Schedules({Key key}) : super(key: key);
 
+  @override
+  _SchedulesState createState() => _SchedulesState();
+}
+
+class _SchedulesState extends State<Schedules> {
   @override
   Widget build(BuildContext context) {
     String idUser = "";
@@ -29,6 +34,17 @@ class Schedules extends StatelessWidget {
         ),
         elevation: 0,
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          SchedulesRepository.registerSchedule(Schedule(id: null, idUser: idUser, url: 'https://images.unsplash.com/photo-1514782831304-632d84503f6f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1575&q=80', name: 'Horario 4'))
+          .then( (response) {
+            setState(() {
+              
+            });
+          });
+        },
+        child: Icon(Icons.add),
+      ),
       body: FutureBuilder(
         future: SchedulesRepository.getSchedules(idUser),
         initialData: [],
@@ -37,7 +53,11 @@ class Schedules extends StatelessWidget {
             return loading(context);
           } else if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.data != null) {
-              return SchedulesWidget(schedules: snapshot.data,height: height,width: width,);
+              return SchedulesWidget(
+                schedules: snapshot.data,
+                height: height,
+                width: width,
+              );
             } else {
               return Text("Error al recuperar los datos");
             }
@@ -53,7 +73,7 @@ class Schedules extends StatelessWidget {
         child: Container(
           height: 60,
           child: LoadingIndicator(
-            indicatorType: Indicator.ballTrianglePath ,
+            indicatorType: Indicator.ballTrianglePath,
             color: Theme.of(context).accentColor,
           ),
         ),
@@ -63,18 +83,20 @@ class Schedules extends StatelessWidget {
 }
 
 class SchedulesWidget extends StatelessWidget {
-  const SchedulesWidget({
-    Key key,
-    @required this.width,
-    @required this.height,
-    @required this.schedules
-  }) : super(key: key);
+  const SchedulesWidget(
+      {Key key,
+      @required this.width,
+      @required this.height,
+      @required this.schedules})
+      : super(key: key);
 
   final double width;
   final double height;
   final List<Schedule> schedules;
   @override
-  Widget build(BuildContext context,) {
+  Widget build(
+    BuildContext context,
+  ) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,10 +128,9 @@ class SchedulesWidget extends StatelessWidget {
   }
 }
 
-List<Container> buildContainers(
-    BuildContext context, double height, double width,List<Schedule> schedules) {
-
-    List<Container> materiaWidgets = [];
+List<Container> buildContainers(BuildContext context, double height,
+    double width, List<Schedule> schedules) {
+  List<Container> materiaWidgets = [];
   for (var i = 0; i < schedules.length; i++) {
     Container con = Container(
       padding: EdgeInsets.only(bottom: 20),
@@ -133,7 +154,8 @@ List<Container> buildContainers(
           Transform.translate(
             offset: Offset(0, 40),
             child: FlatButton(
-              onPressed: () => Navigator.pushNamed(context, '/home', arguments: schedules[i].id),
+              onPressed: () => Navigator.pushNamed(context, '/home',
+                  arguments: schedules[i].id),
               highlightColor: Colors.transparent,
               child: Align(
                 alignment: Alignment.center,
