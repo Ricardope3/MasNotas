@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:mas_notas/Authentication/authenticate_state.dart';
 import 'package:mas_notas/models/user.dart';
-import 'package:mas_notas/repositories/register_repository.dart';
+import 'package:mas_notas/repositories/authenticate_repository.dart';
 
 import 'authenticate_event.dart';
 
