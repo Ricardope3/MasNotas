@@ -24,6 +24,7 @@ class Authenticated extends AuthenticateState {
   });
   @override
   List<Object> get props => [user];
+  User get usuario => this.user;
 }
 
 class AuthenticateError extends AuthenticateState {

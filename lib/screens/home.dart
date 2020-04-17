@@ -9,6 +9,8 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final int idSchedule = ModalRoute.of(context).settings.arguments;
+    print(idSchedule);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -22,7 +24,7 @@ class Home extends StatelessWidget {
         elevation: 0,
       ),
       body: FutureBuilder(
-        future: NoteRepository.getClasses(1),
+        future: NoteRepository.getClasses(idSchedule),
         initialData: [],
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -125,7 +127,7 @@ List<Container> buildContainers(
           Transform.translate(
             offset: Offset(0, 40),
             child: FlatButton(
-              onPressed: () => Navigator.pushNamed(context, '/note_gallery'),
+              onPressed: () => Navigator.pushNamed(context, '/note_gallery', arguments: classes[i].id),
               highlightColor: Colors.transparent,
               child: Align(
                 alignment: Alignment.center,

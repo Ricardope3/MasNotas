@@ -9,6 +9,7 @@ class NoteGallery extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final int idClass = ModalRoute.of(context).settings.arguments;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
         backgroundColor: hint,
@@ -25,7 +26,7 @@ class NoteGallery extends StatelessWidget {
         //   children: _buildImageGrid(context),
         // )
         body: FutureBuilder(
-          future: NoteRepository.getNotes(1), // TODO: CHANGE THIS BOII
+          future: NoteRepository.getNotes(idClass), // TODO: CHANGE THIS BOII
           initialData: [],
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {

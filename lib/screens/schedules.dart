@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:mas_notas/Authentication/authenticate_bloc.dart';
 import 'package:mas_notas/models/schedule.dart';
 import 'package:mas_notas/repositories/schedules_repository.dart';
 import 'package:mas_notas/util/theme.dart';
@@ -9,6 +11,7 @@ class Schedules extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthenticateBloc authBloc = BlocProvider.of<AuthenticateBloc>(context);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -125,7 +128,7 @@ List<Container> buildContainers(
           Transform.translate(
             offset: Offset(0, 40),
             child: FlatButton(
-              onPressed: () => Navigator.pushNamed(context, '/home'),
+              onPressed: () => Navigator.pushNamed(context, '/home', arguments: schedules[i].id),
               highlightColor: Colors.transparent,
               child: Align(
                 alignment: Alignment.center,
