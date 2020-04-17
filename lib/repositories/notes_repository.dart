@@ -34,7 +34,6 @@ class NoteRepository {
     if (response.statusCode == 200) {
       final List<dynamic> jsonObj = json.decode(response.body);
       List<Note> notes = [];
-      print(jsonObj);
       jsonObj[0].forEach((_, val) {
         notes.add(Note.fromJson(val));
       });

@@ -1,9 +1,14 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart' as dio;
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mas_notas/util/theme.dart';
 import 'package:mas_notas/models/note.dart';
 import 'package:mas_notas/repositories/notes_repository.dart';
 import 'package:loading_indicator/loading_indicator.dart';
+import 'package:path/path.dart';
 
 class NoteGallery extends StatelessWidget {
   const NoteGallery({Key key}) : super(key: key);
@@ -22,7 +27,7 @@ class NoteGallery extends StatelessWidget {
             return;
           }
           Note nota = await NoteRepository.postNote(idClass);
-          // this.build(context);
+          this.build(context);
         },
         child: Icon(
           Icons.plus_one,
