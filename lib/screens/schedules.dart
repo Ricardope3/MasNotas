@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:mas_notas/Authentication/authenticate_bloc.dart';
+import 'package:mas_notas/Authentication/authenticate_state.dart';
 import 'package:mas_notas/models/schedule.dart';
 import 'package:mas_notas/repositories/schedules_repository.dart';
 import 'package:mas_notas/util/theme.dart';
@@ -11,7 +12,11 @@ class Schedules extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String idUser = "";
     AuthenticateBloc authBloc = BlocProvider.of<AuthenticateBloc>(context);
+    Authenticated authState = authBloc.state as Authenticated;
+    idUser = authState.usuario.email;
+    print(authState.usuario.email);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -25,7 +30,7 @@ class Schedules extends StatelessWidget {
         elevation: 0,
       ),
       body: FutureBuilder(
-        future: SchedulesRepository.getSchedules("rafa@google.com"),
+        future: SchedulesRepository.getSchedules(idUser),
         initialData: [],
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
