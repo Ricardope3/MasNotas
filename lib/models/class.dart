@@ -18,7 +18,7 @@ class Class extends Equatable {
   factory Class.fromJson(Map<String, dynamic> json) {
     return Class(
       id: json['id'] as int,
-      idSchedule: json['idSchedule'] as int,
+      idSchedule: json['idschedule'] as int,
       start: DateTime.parse(json['start']),
       end: DateTime.parse(json['end']),
       name: json['name'] as String,
@@ -28,7 +28,7 @@ class Class extends Equatable {
 
   @override
   String toString() {
-    return "{\n\tClase: ${this.name}\n\tStart: ${this.start}\n\tEnd: ${this.end}\n\tURL: ${this.imageUrl}}";
+    return "{\n\tClase: ${this.name}\n\tStart: ${this.start}\n\tEnd: ${this.end}\n\tURL: ${this.imageUrl}\n\tidSchedule: ${this.idSchedule}}";
   }
 
   @override

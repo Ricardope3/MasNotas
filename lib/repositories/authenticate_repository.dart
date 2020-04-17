@@ -4,7 +4,7 @@ import 'package:mas_notas/models/user.dart';
 import 'package:http/http.dart' as http;
 
 class AuthRepository {
-  String _baseUrl = "http://localhost:3000/";
+  String _baseUrl = "http://localhost:3000/dev/";
   String _register = "registro?";
   String _login = "login?";
 
@@ -30,6 +30,7 @@ class AuthRepository {
       return User(
           email: user.email, password: user.password, name: jsonObj[0]['name']);
     } else {
+      print(response.body);
       return null;
     }
   }

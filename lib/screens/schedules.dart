@@ -21,7 +21,6 @@ class _SchedulesState extends State<Schedules> {
     AuthenticateBloc authBloc = BlocProvider.of<AuthenticateBloc>(context);
     Authenticated authState = authBloc.state as Authenticated;
     idUser = authState.usuario.email;
-    print(authState.usuario.email);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -36,11 +35,15 @@ class _SchedulesState extends State<Schedules> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          SchedulesRepository.registerSchedule(Schedule(id: null, idUser: idUser, url: 'https://images.unsplash.com/photo-1514782831304-632d84503f6f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1575&q=80', name: 'Horario 4'))
-          .then( (response) {
-            setState(() {
-              
-            });
+          SchedulesRepository.registerSchedule(
+            Schedule(
+                id: null,
+                idUser: idUser,
+                url:
+                    'https://images.unsplash.com/photo-1514782831304-632d84503f6f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1575&q=80',
+                name: 'Horario 4'),
+          ).then((response) {
+            setState(() {});
           });
         },
         child: Icon(Icons.add),

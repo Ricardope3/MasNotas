@@ -16,7 +16,10 @@ class Note extends Equatable {
       url: json['url'] as String
     );
   }
-
+@override
+  String toString() {
+    return "url: ${this.url}";
+  }
   @override
   List<Object> get props => [id, idClass, url];
 }

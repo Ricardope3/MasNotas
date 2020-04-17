@@ -10,11 +10,10 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final int idSchedule = ModalRoute.of(context).settings.arguments;
-    print(idSchedule);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: primary.withAlpha(30),
+      backgroundColor: primary.withAlpha(70),
       appBar: AppBar(
         backgroundColor: accent,
         title: Text(

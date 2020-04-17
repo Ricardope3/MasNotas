@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:mas_notas/models/schedule.dart';
 
 class SchedulesRepository {
-  static String _baseUrl = "http://localhost:3000/";
+  static String _baseUrl = "http://localhost:3000/dev/";
   static String _horario_get = "horario_get?";
   static String _horario_registro = "horario_registro?";
 
