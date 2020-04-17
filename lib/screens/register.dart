@@ -173,6 +173,7 @@ class Register extends StatelessWidget {
                         height: 20,
                       ),
                       TextFormField(
+                        obscureText: true,
                         onChanged: (val) {
                           _password = val;
                         },
@@ -192,6 +193,7 @@ class Register extends StatelessWidget {
                         height: 20,
                       ),
                       TextFormField(
+                        obscureText: true,
                         onChanged: (val) {},
                         decoration: InputDecoration(
                           prefixIcon: Icon(

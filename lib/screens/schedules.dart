@@ -15,6 +15,8 @@ class Schedules extends StatefulWidget {
 }
 
 class _SchedulesState extends State<Schedules> {
+  List<Schedule> schedulesList = [];
+
   @override
   Widget build(BuildContext context) {
     String idUser = "";
@@ -35,16 +37,33 @@ class _SchedulesState extends State<Schedules> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          SchedulesRepository.registerSchedule(
-            Schedule(
-                id: null,
-                idUser: idUser,
-                url:
-                    'https://images.unsplash.com/photo-1514782831304-632d84503f6f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1575&q=80',
-                name: 'Horario 4'),
-          ).then((response) {
-            setState(() {});
-          });
+          if (schedulesList.isNotEmpty) {
+            String lastSchedulesName =
+                schedulesList[schedulesList.length - 1].name;
+            int lastIndex =
+                int.parse(lastSchedulesName[lastSchedulesName.length - 1]);
+            SchedulesRepository.registerSchedule(
+              Schedule(
+                  id: null,
+                  idUser: idUser,
+                  url:
+                      'https://images.unsplash.com/photo-1514782831304-632d84503f6f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1575&q=80',
+                  name: 'Horario ' + (lastIndex + 1).toString()),
+            ).then((response) {
+              setState(() {});
+            });
+          } else {
+            SchedulesRepository.registerSchedule(
+              Schedule(
+                  id: null,
+                  idUser: idUser,
+                  url:
+                      'https://images.unsplash.com/photo-1514782831304-632d84503f6f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1575&q=80',
+                  name: 'Horario 1'),
+            ).then((response) {
+              setState(() {});
+            });
+          }
         },
         child: Icon(Icons.add),
       ),
@@ -56,6 +75,7 @@ class _SchedulesState extends State<Schedules> {
             return loading(context);
           } else if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.data != null) {
+              schedulesList = snapshot.data;
               return SchedulesWidget(
                 schedules: snapshot.data,
                 height: height,
