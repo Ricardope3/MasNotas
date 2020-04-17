@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mas_notas/Authentication/authenticate_state.dart';
+import 'package:mas_notas/screens/schedules.dart';
 import 'package:mas_notas/screens/authenticate.dart';
-import 'package:mas_notas/screens/home.dart';
 
 import 'Authentication/authenticate_bloc.dart';
 
@@ -30,7 +30,7 @@ class _WrapperState extends State<Wrapper> {
           }
         },
         child: Scaffold(
-          body: authenticated ? Home() : Authenticate(),
+          body: authenticated ? Schedules() : Authenticate(),
         ),
       ),
     );

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mas_notas/screens/note_gallery.dart';
+import 'package:mas_notas/screens/schedules.dart';
+import 'package:mas_notas/screens/home.dart';
 import 'package:mas_notas/util/theme.dart';
 import 'package:mas_notas/wrapper.dart';
 
@@ -14,7 +16,9 @@ class MyApp extends StatelessWidget {
       theme: theme,
       home: Wrapper(),
       routes: <String, WidgetBuilder> {
-      '/note_gallery': (BuildContext context) => NoteGallery()
+      '/note_gallery': (BuildContext context) => NoteGallery(),
+      '/schedules': (BuildContext context) => Schedules(),
+      '/home': (BuildContext context) => Home()
     },
     );
   }
