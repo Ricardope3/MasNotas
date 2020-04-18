@@ -16,8 +16,13 @@ class Schedule extends Equatable {
       idUser: json['iduser'] as String,
       url: json['url'] as String,
       name: json['nombre'] as String,
-      id: json['id'] as int
+      id: json['idschedule'] as int
     );
+  }
+
+  @override
+  String toString() {
+    return "{ id: $id, idUser: $idUser, nombre: $name}";
   }
 
   @override

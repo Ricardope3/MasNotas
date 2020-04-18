@@ -30,11 +30,26 @@ class Home extends StatelessWidget {
             return loading(context);
           } else if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.data != null) {
-              return MateriasWidget(classes: snapshot.data,height: height,width: width,);
+              return MateriasWidget(
+                classes: snapshot.data,
+                height: height,
+                width: width,
+              );
             } else {
-              return Text("Error al recuperar los datos");
+              return Center(
+                child: Text(
+                  "Este horario aun no tiene materias",
+                  style: TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              );
             }
           }
+          return Text("Error en el estado de la app");
         },
       ),
     );
@@ -46,7 +61,7 @@ class Home extends StatelessWidget {
         child: Container(
           height: 60,
           child: LoadingIndicator(
-            indicatorType: Indicator.ballTrianglePath ,
+            indicatorType: Indicator.ballTrianglePath,
             color: Theme.of(context).accentColor,
           ),
         ),
@@ -56,18 +71,20 @@ class Home extends StatelessWidget {
 }
 
 class MateriasWidget extends StatelessWidget {
-  const MateriasWidget({
-    Key key,
-    @required this.width,
-    @required this.height,
-    @required this.classes
-  }) : super(key: key);
+  const MateriasWidget(
+      {Key key,
+      @required this.width,
+      @required this.height,
+      @required this.classes})
+      : super(key: key);
 
   final double width;
   final double height;
-  final List<Class> classes ;
+  final List<Class> classes;
   @override
-  Widget build(BuildContext context,) {
+  Widget build(
+    BuildContext context,
+  ) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,9 +117,8 @@ class MateriasWidget extends StatelessWidget {
 }
 
 List<Container> buildContainers(
-    BuildContext context, double height, double width,List<Class> classes) {
-
-    List<Container> materiaWidgets = [];
+    BuildContext context, double height, double width, List<Class> classes) {
+  List<Container> materiaWidgets = [];
   for (var i = 0; i < classes.length; i++) {
     Container con = Container(
       padding: EdgeInsets.only(bottom: 20),
@@ -126,7 +142,8 @@ List<Container> buildContainers(
           Transform.translate(
             offset: Offset(0, 40),
             child: FlatButton(
-              onPressed: () => Navigator.pushNamed(context, '/note_gallery', arguments: classes[i].id),
+              onPressed: () => Navigator.pushNamed(context, '/note_gallery',
+                  arguments: classes[i].id),
               highlightColor: Colors.transparent,
               child: Align(
                 alignment: Alignment.center,
