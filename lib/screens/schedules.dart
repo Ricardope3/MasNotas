@@ -44,7 +44,6 @@ class _SchedulesState extends State<Schedules> {
                 int.parse(lastSchedulesName[lastSchedulesName.length - 1]);
             SchedulesRepository.registerSchedule(
               Schedule(
-                  id: null,
                   idUser: idUser,
                   url:
                       'https://images.unsplash.com/photo-1514782831304-632d84503f6f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1575&q=80',
@@ -55,7 +54,6 @@ class _SchedulesState extends State<Schedules> {
           } else {
             SchedulesRepository.registerSchedule(
               Schedule(
-                  id: null,
                   idUser: idUser,
                   url:
                       'https://images.unsplash.com/photo-1514782831304-632d84503f6f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1575&q=80',
@@ -82,9 +80,18 @@ class _SchedulesState extends State<Schedules> {
                 width: width,
               );
             } else {
-              return Text("Error al recuperar los datos");
+              return Center(
+                child: Text(
+                  "Error al recuperar los datos",
+                  style: TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              );
             }
           }
+          return Text("Algo Salio mal con el estado");
         },
       ),
     );
@@ -177,8 +184,11 @@ List<Container> buildContainers(BuildContext context, double height,
           Transform.translate(
             offset: Offset(0, 40),
             child: FlatButton(
-              onPressed: () => Navigator.pushNamed(context, '/home',
-                  arguments: schedules[i].id),
+              onPressed: () => Navigator.pushNamed(
+                context,
+                '/home',
+                arguments: schedules[i].id,
+              ),
               highlightColor: Colors.transparent,
               child: Align(
                 alignment: Alignment.center,

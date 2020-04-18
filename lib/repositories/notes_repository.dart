@@ -57,10 +57,8 @@ class NoteRepository {
     String url = "$_baseUrl$_postNotas$_queryParams";
     http.Response response = await http.get(url);
     if (response.statusCode == 200) {
-      print(response.body);
       return null;
     } else {
-      print(response.body);
       return null;
     }
   }
