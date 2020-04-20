@@ -4,7 +4,7 @@ import 'package:mas_notas/models/user.dart';
 import 'package:http/http.dart' as http;
 
 class AuthRepository {
-  String _baseUrl = "http://localhost:3000/dev/";
+  String _baseUrl = "https://hnbcxspqtf.execute-api.us-east-1.amazonaws.com/dev/";
   String _register = "registro?";
   String _login = "login?";
 
@@ -13,6 +13,8 @@ class AuthRepository {
         "email=${user.email}&name=${user.name}&password=${user.password}";
     String url = "$_baseUrl$_register$_queryParams";
     http.Response response = await http.get(url);
+    print(response.body);
+
     if (response.statusCode == 200) {
       return user;
     } else {
@@ -24,6 +26,8 @@ class AuthRepository {
     String _queryParams = "email=${user.email}";
     String url = "$_baseUrl$_login$_queryParams";
     var response = await http.get(url);
+    print(response.body);
+
     if (response.statusCode == 200) {
       final jsonObj = json.decode(response.body);
       return User(

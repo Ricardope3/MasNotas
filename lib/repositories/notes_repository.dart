@@ -5,7 +5,7 @@ import 'package:mas_notas/models/class.dart';
 import 'package:mas_notas/models/note.dart';
 
 class NoteRepository {
-  static String _baseUrl = "http://localhost:3000/dev/";
+  static String _baseUrl = "https://hnbcxspqtf.execute-api.us-east-1.amazonaws.com/dev/";
   static String _materias = "materias?";
   static String _get_notas = "get_notas?";
   static String _postNotas = "insertar_nota?";
@@ -14,6 +14,8 @@ class NoteRepository {
     String _queryParams = "idschedule=$idSchedule";
     String url = "$_baseUrl$_materias$_queryParams";
     http.Response response = await http.get(url);
+    print(response.body);
+
     if (response.statusCode == 200) {
       final List<dynamic> jsonObj = json.decode(response.body);
       List<Class> classes = [];
@@ -31,6 +33,8 @@ class NoteRepository {
     String _queryParams = "idclass=$idClass";
     String url = "$_baseUrl$_get_notas$_queryParams";
     http.Response response = await http.get(url);
+    print(response.body);
+
     if (response.statusCode == 200) {
       final List<dynamic> jsonObj = json.decode(response.body);
       List<Note> notes = [];
@@ -56,6 +60,8 @@ class NoteRepository {
     String _queryParams = "idclass=$idClass&url=$_noteUrl";
     String url = "$_baseUrl$_postNotas$_queryParams";
     http.Response response = await http.get(url);
+    print(response.body);
+
     if (response.statusCode == 200) {
       return null;
     } else {

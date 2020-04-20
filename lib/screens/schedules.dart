@@ -46,7 +46,7 @@ class _SchedulesState extends State<Schedules> {
               Schedule(
                   idUser: idUser,
                   url:
-                      'https://images.unsplash.com/photo-1514782831304-632d84503f6f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1575&q=80',
+                      'https://masnotas.s3.us-east-2.amazonaws.com/schedules/schedule3.jpg',
                   name: 'Horario ' + (lastIndex + 1).toString()),
             ).then((response) {
               setState(() {});
@@ -56,7 +56,7 @@ class _SchedulesState extends State<Schedules> {
               Schedule(
                   idUser: idUser,
                   url:
-                      'https://images.unsplash.com/photo-1514782831304-632d84503f6f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1575&q=80',
+                      'https://masnotas.s3.us-east-2.amazonaws.com/schedules/schedule3.jpg',
                   name: 'Horario 1'),
             ).then((response) {
               setState(() {});

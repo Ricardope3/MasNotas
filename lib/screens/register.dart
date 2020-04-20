@@ -21,7 +21,7 @@ class Register extends StatelessWidget {
       body: BlocListener<AuthenticateBloc, AuthenticateState>(
         listener: (context, state) {
           if (state is Authenticated) {
-            Navigator.pushReplacementNamed(context, "/navWrapper");
+            // Navigator.pushReplacementNamed(context, "/navWrapper");
           } else if (state is AuthenticateError) {
             final snackBar = SnackBar(content: Text('Error en el registro'));
             Scaffold.of(context).showSnackBar(snackBar);
