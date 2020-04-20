@@ -15,6 +15,9 @@ https://flutter.dev/docs/get-started/install
 ## Para correr la aplicacion en el simulador utilice el siguiente comando
 ```flutter run```
 
+## Si por alguna razon falla en el build se recomienda hacer este comando
+`flutter clean`
+
 ## Para ingresar a la aplicacion use el siguiente usuario este usuario si tiene horarios y materias
 
 * ricardo@google.com
