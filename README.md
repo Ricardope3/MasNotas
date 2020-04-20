@@ -4,7 +4,7 @@
 https://flutter.dev/docs/get-started/install
 
 ## Para descargar las dependencias de flutter
-```flutter pub get packages```
+```flutter pub get```
 
 ## Abra el simulador de su preferencia
 
